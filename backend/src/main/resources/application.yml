@@ -1,0 +1,161 @@
+spring:
+  application:
+    name: smart-tcm-api
+
+  # Neo4j：嵌入式服务自动启动，默认已启用知识图谱功能
+  neo4j:
+    uri: ${NEO4J_URI:bolt://localhost:17687}
+    authentication:
+      username: ${NEO4J_USERNAME:neo4j}
+      password: ${NEO4J_PASSWORD:neo4j-password}
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/smarttcm?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: SmartTcmPool
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # QQ Mail SMTP Configuration
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: your-email@qq.com
+    password: your-email-smtp-auth-code
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+              port: 465
+          starttls:
+            enable: false
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api/v1
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+  show-actuator: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+# Application Configuration
+app:
+  project-name: Smart TCM API
+  jwt:
+    secret: ${JWT_SECRET:qfhj-smarttcm-jwt-secret-2026-default-key-32ch}
+    expiration: 86400000  # 24 hours in milliseconds
+    algorithm: HS256
+  mail:
+    from: your-email@qq.com
+    from-name: 千方慧鉴
+    verification:
+      code-length: 6
+      expiration-minutes: 5
+      max-send-per-hour: 5
+    reset-password:
+      token-expiration-minutes: 30
+  question:
+    max-generate-count: 10
+  news:
+    # tencent-news-cli 相对路径（相对于项目根目录）
+    cli-path: downloads/skills/tencent-news/tencent-news-cli
+    # 每次爬取数量限制
+    hot-limit: 10
+    morning-limit: 10
+    evening-limit: 10
+    search-limit: 10
+    # 定时爬取间隔（小时）
+    fetch-interval-hours: 6
+  file:
+    # 本地文件存储根目录
+    storage-path: downloads
+    # base-url 不再配置，由 FileConfig 动态推断服务器地址
+  skin-detection:
+    # Python 分割模型推理服务地址；生产环境建议仅监听 127.0.0.1 并由后端代理访问
+    python-service-url: ${SKIN_SERVICE_URL:http://127.0.0.1:5000}
+  cors:
+    # 多个来源用英文逗号分隔；生产环境请改为正式域名，不要使用 *
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://127.0.0.1:5173}
+
+# 千方慧鉴 AI Configuration (DashScope OpenAI-compatible API)
+# 注意：实际密钥从启动脚本或系统环境变量读取，不写死到源码配置中。
+deepseek:
+  api-key: ${QWEN_API_KEY:your-dashscope-api-key}
+  base-url: ${QWEN_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+  model: ${QWEN_MODEL:qwen-plus}
+  temperature: ${QWEN_TEMPERATURE:0.55}
+  max-tokens: ${QWEN_MAX_TOKENS:4096}
+  # AI_MODE=cloud_first / local_draft_qwen_refine / local_only
+  # 默认 local_draft_qwen_refine：本地微调模型生成短草稿 → Qwen 润色纠错
+  ai-mode: ${AI_MODE:local_draft_qwen_refine}
+  local-enabled: ${LOCAL_DEEPSEEK_ENABLED:true}
+  local-base-url: ${LOCAL_DEEPSEEK_BASE_URL:http://127.0.0.1:8000/v1}
+  local-api-key: ${LOCAL_DEEPSEEK_API_KEY:local}
+  local-model: ${LOCAL_DEEPSEEK_MODEL:traditional_medical}
+  local-max-tokens: ${LOCAL_DEEPSEEK_MAX_TOKENS:768}
+  # 中医问诊专业增强：本地微调模型只生成短草稿，Qwen 低信任润色/纠错；超时后直接走 Qwen，保护流式体验。
+  local-draft-enabled: ${LOCAL_DRAFT_ENABLED:true}
+  local-draft-timeout-ms: ${LOCAL_DRAFT_TIMEOUT_MS:2500}
+  local-draft-max-tokens: ${LOCAL_DRAFT_MAX_TOKENS:160}
+
+# DashScope (Alibaba Cloud) Embedding Configuration
+dashscope:
+  api-key: ${DASHSCOPE_API_KEY:${QWEN_API_KEY:}}
+  base-url: ${DASHSCOPE_BASE_URL:https://dashscope.aliyuncs.com/compatible-mode/v1}
+  embedding-model: ${DASHSCOPE_EMBEDDING_MODEL:text-embedding-v4}
+
+# RAG Configuration
+rag:
+  # 向量维度 (text-embedding-v4 输出 1024 维)
+  embedding-dimension: 1024
+  # 每次检索返回的最大文档数
+  max-results: 5
+  # 文档分块大小 (字符数)
+  chunk-size: 500
+  # 分块重叠字符数
+  chunk-overlap: 50
+  # 索引类型: FLAT (精确搜索) 或 IVF (近似搜索)
+  index-type: FLAT
+
+logging:
+  level:
+    root: INFO
+    com.smarttcm: INFO
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN

@@ -1,0 +1,19 @@
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Sensitive configuration - do not commit credentials
+# Uncomment the line below if you store real credentials in application.yml
+# src/main/resources/application.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

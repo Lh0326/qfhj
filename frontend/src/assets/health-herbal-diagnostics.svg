@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640" role="img" aria-label="智慧中医问诊插画">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eff7ef"/><stop offset=".55" stop-color="#ffffff"/><stop offset="1" stop-color="#f7efd9"/></linearGradient>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#5B7D63"/><stop offset="1" stop-color="#C4A862"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#2d3b2e" flood-opacity=".16"/></filter>
+  </defs>
+  <rect width="960" height="640" rx="64" fill="url(#bg)"/>
+  <circle cx="790" cy="96" r="116" fill="#dfeee3" opacity=".7"/>
+  <circle cx="156" cy="526" r="150" fill="#f3e8c4" opacity=".72"/>
+  <path d="M88 170 C248 88 373 220 528 143 S785 124 872 234" fill="none" stroke="#7C9A82" stroke-width="3" stroke-dasharray="10 18" opacity=".42"/>
+  <g filter="url(#s)">
+    <rect x="225" y="136" width="510" height="360" rx="42" fill="white"/>
+    <rect x="270" y="188" width="220" height="18" rx="9" fill="#dce8dd"/>
+    <rect x="270" y="226" width="332" height="14" rx="7" fill="#eef4ef"/>
+    <rect x="270" y="256" width="286" height="14" rx="7" fill="#eef4ef"/>
+    <rect x="270" y="312" width="420" height="98" rx="28" fill="#f8faf7" stroke="#e2e8e3"/>
+    <path d="M302 370 C338 315 380 322 410 376 C373 390 333 404 302 370Z" fill="#7C9A82" opacity=".9"/>
+    <path d="M420 374 C456 306 510 320 536 384 C494 401 453 406 420 374Z" fill="#C4A862" opacity=".72"/>
+    <path d="M556 374 C594 318 642 330 662 390 C623 401 584 401 556 374Z" fill="#5B7D63" opacity=".82"/>
+    <circle cx="640" cy="206" r="42" fill="url(#g)" opacity=".92"/>
+    <path d="M625 206 h30 M640 191 v30" stroke="white" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

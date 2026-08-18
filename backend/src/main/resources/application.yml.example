@@ -1,0 +1,127 @@
+spring:
+  application:
+    name: smart-tcm-api
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/smarttcm?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8
+    username: your-db-username
+    password: your-db-password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: SmartTcmPool
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+  # QQ Mail SMTP Configuration
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: your-email@qq.com
+    password: your-email-smtp-auth-code
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            socketFactory:
+              class: javax.net.ssl.SSLSocketFactory
+              port: 465
+          starttls:
+            enable: false
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+server:
+  port: 8081
+  servlet:
+    context-path: /api/v1
+
+# SpringDoc OpenAPI Configuration
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+  show-actuator: false
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+
+# Application Configuration
+app:
+  project-name: Smart TCM API
+  jwt:
+    secret: your-jwt-secret-key
+    expiration: 86400000  # 24 hours in milliseconds
+    algorithm: HS256
+  mail:
+    from: your-email@qq.com
+    from-name: 千方慧鉴
+    verification:
+      code-length: 6
+      expiration-minutes: 5
+      max-send-per-hour: 5
+    reset-password:
+      token-expiration-minutes: 30
+  question:
+    max-generate-count: 10
+  news:
+    cli-path: downloads/skills/tencent-news/tencent-news-cli
+    hot-limit: 10
+    morning-limit: 10
+    evening-limit: 10
+    search-limit: 10
+    fetch-interval-hours: 6
+  file:
+    storage-path: downloads
+  skin-detection:
+    python-service-url: http://127.0.0.1:5000
+
+# 千方慧鉴 AI Configuration (DashScope OpenAI-compatible API)
+deepseek:
+  api-key: your-dashscope-api-key
+  base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  model: qwen-plus
+  temperature: 0.7
+  max-tokens: 4096
+
+# DashScope (Alibaba Cloud) Embedding Configuration
+dashscope:
+  api-key: your-dashscope-embedding-api-key
+  base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+  embedding-model: text-embedding-v4
+
+# RAG Configuration
+rag:
+  embedding-dimension: 1024
+  max-results: 5
+  chunk-size: 500
+  chunk-overlap: 50
+  index-type: FLAT
+
+logging:
+  level:
+    root: INFO
+    com.smarttcm: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

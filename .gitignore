@@ -1,0 +1,29 @@
+# Build artifacts
+backend/target/
+neo4j-embedded/target/
+frontend/node_modules/
+frontend/dist/
+
+# Runtime data (rebuildable)
+neo4j-data/
+backend/downloads/
+data/
+*.log
+
+# Model weights (too large for git; see README for download instructions)
+model2/
+best_mIoU_epoch_100.pth
+*.pth
+*.safetensors
+
+# Local env
+.env
+qfhj_local_env.bat
+application-local.yml
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+downloads/rag/

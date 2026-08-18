@@ -1,0 +1,307 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #FFFFFF;
+  --foreground: #2D3B2E;
+  --card: #FFFFFF;
+  --card-foreground: #2D3B2E;
+  --popover: #FAFCFA;
+  --popover-foreground: #2D3B2E;
+  --primary: #7C9A82;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F0E8;
+  --secondary-foreground: #2D3B2E;
+  --muted: #F0F4F1;
+  --muted-foreground: #6B7B6E;
+  --accent: #C4A862;
+  --accent-foreground: #2D3B2E;
+  --destructive: #C0392B;
+  --destructive-foreground: #ffffff;
+  --border: #E2E8E3;
+  --input: transparent;
+  --input-background: #F5F8F5;
+  --switch-background: #D5DDD6;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #7C9A82;
+  --chart-1: #7C9A82;
+  --chart-2: #C4A862;
+  --chart-3: #5B7D63;
+  --chart-4: #A8BFAE;
+  --chart-5: #8B6F47;
+  --radius: 0.75rem;
+  --sidebar: #FAFCFA;
+  --sidebar-foreground: #2D3B2E;
+  --sidebar-primary: #7C9A82;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F4F1;
+  --sidebar-accent-foreground: #2D3B2E;
+  --sidebar-border: #E2E8E3;
+  --sidebar-ring: #7C9A82;
+}
+
+.dark {
+  --background: #1A2220;
+  --foreground: #E8F0EA;
+  --card: #243028;
+  --card-foreground: #E8F0EA;
+  --popover: #243028;
+  --popover-foreground: #E8F0EA;
+  --primary: #A8BFAE;
+  --primary-foreground: #1A2220;
+  --secondary: #2D3B2E;
+  --secondary-foreground: #E8F0EA;
+  --muted: #2D3B2E;
+  --muted-foreground: #8BA690;
+  --accent: #C4A862;
+  --accent-foreground: #1A2220;
+  --destructive: #E74C3C;
+  --destructive-foreground: #FDE8E8;
+  --border: #3D5040;
+  --input: #3D5040;
+  --ring: #A8BFAE;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #A8BFAE;
+  --chart-2: #C4A862;
+  --chart-3: #7C9A82;
+  --chart-4: #5B7D63;
+  --chart-5: #8B6F47;
+  --sidebar: #1A2220;
+  --sidebar-foreground: #E8F0EA;
+  --sidebar-primary: #A8BFAE;
+  --sidebar-primary-foreground: #1A2220;
+  --sidebar-accent: #2D3B2E;
+  --sidebar-accent-foreground: #E8F0EA;
+  --sidebar-border: #3D5040;
+  --sidebar-ring: #A8BFAE;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
+
+@keyframes qfhj-profile-flow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes qfhj-soft-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(1deg); }
+}
+
+@keyframes qfhj-scan-line {
+  0% { transform: translateX(-120%); opacity: 0; }
+  12% { opacity: .85; }
+  50% { opacity: .95; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+@keyframes qfhj-plant-sway {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-4px) rotate(1.5deg); }
+}
+
+@keyframes qfhj-water-drop {
+  0% { transform: translateY(-18px) scale(.72); opacity: 0; }
+  18% { opacity: 1; }
+  100% { transform: translateY(98px) scale(1.08); opacity: 0; }
+}
+
+@keyframes qfhj-plant-breathe {
+  0%, 100% { transform: translateY(0) scale(1); filter: saturate(1); }
+  50% { transform: translateY(-3px) scale(1.035); filter: saturate(1.08); }
+}
+
+@keyframes qfhj-water-can {
+  0%, 100% { transform: rotate(-18deg) translateY(0); }
+  45% { transform: rotate(-34deg) translateY(3px); }
+}
+
+@keyframes qfhj-growth-pop {
+  0% { transform: translate(-50%, 10px) scale(.82); opacity: 0; }
+  25% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -20px) scale(.98); opacity: 0; }
+}
+
+.qfhj-flow-mask {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.qfhj-flow-track {
+  display: flex;
+  width: max-content;
+  animation: qfhj-profile-flow 28s linear infinite;
+}
+
+.qfhj-flow-track:hover {
+  animation-play-state: paused;
+}
+
+.qfhj-soft-float {
+  animation: qfhj-soft-float 7s ease-in-out infinite;
+}
+
+.qfhj-scan-line::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.42), transparent);
+  animation: qfhj-scan-line 4.8s ease-in-out infinite;
+}
+
+.qfhj-plant-sway {
+  animation: qfhj-plant-sway 4.6s ease-in-out infinite;
+  transform-origin: 50% 100%;
+  transition: transform .35s ease;
+}
+
+.qfhj-plant-image {
+  animation: qfhj-plant-breathe 3.8s ease-in-out infinite;
+  transform-origin: 50% 92%;
+}
+
+.qfhj-plant-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: auto 18% 4% 18%;
+  height: 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255,255,255,.62), rgba(255,255,255,0));
+  filter: blur(3px);
+  z-index: -1;
+}
+
+.qfhj-plant-thumb {
+  animation: qfhj-plant-breathe 4.4s ease-in-out infinite;
+}
+
+.qfhj-water-drop {
+  top: 16%;
+  animation: qfhj-water-drop 1.05s cubic-bezier(.18,.78,.32,1) forwards;
+}
+
+.qfhj-water-can {
+  animation: qfhj-water-can 1.2s ease-in-out forwards;
+  transform-origin: 20% 80%;
+}
+
+.qfhj-growth-pop {
+  animation: qfhj-growth-pop 1.35s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qfhj-flow-track,
+  .qfhj-soft-float,
+  .qfhj-scan-line::after,
+  .qfhj-plant-sway,
+  .qfhj-water-drop,
+  .qfhj-water-can,
+  .qfhj-growth-pop {
+    animation: none !important;
+  }
+}
