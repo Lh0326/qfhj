@@ -25,23 +25,23 @@
 
 千方慧鉴把症候采集到辨证报告组织为七步向导流程：会话进度与各步结果落库，前端支持恢复进度和前四步数据；关键辨证输出经过清洗、结构化解析和保守兜底后再进入界面。系统还提供自由问诊、皮肤病灶分割与多模态分析，以及 Neo4j 图谱和轻量向量检索。
 
-> **用途说明：** 本项目用于竞赛展示与技术研究。系统输出是辅助参考，不能替代执业医师的诊断、处方或治疗建议。
+> <strong>用途说明：</strong> 本项目用于竞赛展示与技术研究。系统输出是辅助参考，不能替代执业医师的诊断、处方或治疗建议。
 
 ## 界面预览
 
-以下截图展示登录、七步向导、皮肤检测、知识库与个人中心。
+以下截图展示自动登录过渡页、七步向导中的关键页面、皮肤检测、知识库与个人中心。
 
-| 登录与入口 | 症候程度评估 |
+| 登录过渡页 | 症候程度评估 |
 |:---:|:---:|
-| ![登录界面](docs/images/ui_login.png) | ![向导式辨证：症候评估](docs/images/ui_wizard_1.png) |
+| ![演示账号自动登录过渡页](docs/images/ui_login.png) | ![向导式辨证：症候评估](docs/images/ui_wizard_1.png) |
 
-| 向导流程 | AI 辨证报告 |
+| 子午归经 | AI 辨证报告 |
 |:---:|:---:|
-| ![向导式辨证：流程界面](docs/images/ui_wizard_2.png) | ![向导式辨证：AI 辨证](docs/images/ui_wizard_3.png) |
+| ![向导式辨证：子午归经](docs/images/ui_wizard_2.png) | ![向导式辨证：AI 辨证](docs/images/ui_wizard_3.png) |
 
-| 多流派会诊 | 皮肤病检测 |
+| 辨证报告预览 | 皮肤病检测 |
 |:---:|:---:|
-| ![向导式辨证：多流派会诊](docs/images/ui_wizard_4.png) | ![皮肤病检测界面](docs/images/ui_skin_detection.png) |
+| ![辨证诊疗报告预览](docs/images/ui_wizard_4.png) | ![皮肤病检测界面](docs/images/ui_skin_detection.png) |
 
 | 知识库与图谱 | 个人中心 |
 |:---:|:---:|
@@ -51,9 +51,9 @@
 
 ### 环境与资源
 
-- **基础环境：** JDK 17、Maven 3.8+、Node.js 18+、MySQL 8.0+。
-- **云端模型：** 用于向导后续 AI 步骤的 DashScope `QWEN_API_KEY`。知识库嵌入服务可共用该密钥，也可单独设置 `DASHSCOPE_API_KEY`。
-- **可选能力：** 本地 1.5B 模型、皮肤分割服务需要 Python 3.10+ 和对应权重；知识图谱需要启动仓库中的 Neo4j 嵌入式服务。
+- <strong>基础环境：</strong> JDK 17、Maven 3.8+、Node.js 18+、MySQL 8.0+。
+- <strong>云端模型：</strong> 用于向导后续 AI 步骤的 DashScope `QWEN_API_KEY`。知识库嵌入服务可共用该密钥，也可单独设置 `DASHSCOPE_API_KEY`。
+- <strong>可选能力：</strong> 本地 1.5B 模型、皮肤分割服务需要 Python 3.10+ 和对应权重；知识图谱需要启动仓库中的 Neo4j 嵌入式服务。
 
 #### 1. 获取代码并导入演示数据
 
@@ -62,7 +62,7 @@ git clone https://github.com/Lh0326/qfhj.git
 cd qfhj
 ```
 
-`database/smarttcm_full.sql` 是完整数据库转储，**包含 `DROP DATABASE IF EXISTS smarttcm`**。请仅在空白演示环境导入，或先备份已有同名数据库。在仓库根目录运行 `mysql -u root -p`，然后于 MySQL 提示符中执行：
+`database/smarttcm_full.sql` 是完整数据库转储，<strong>包含 `DROP DATABASE IF EXISTS smarttcm`</strong>。请仅在空白演示环境导入，或先备份已有同名数据库。在仓库根目录运行 `mysql -u root -p`，然后于 MySQL 提示符中执行：
 
 ```sql
 SOURCE database/smarttcm_full.sql;
@@ -70,7 +70,7 @@ SOURCE database/smarttcm_full.sql;
 
 #### 2. 启动最小体验
 
-以下以 **PowerShell** 为例。先设置自己的密钥与数据库密码；`cloud_first` 会跳过本地草稿服务，`NEO4J_ENABLED=false` 会关闭知识图谱模块。
+以下以 <strong>PowerShell</strong> 为例。先设置自己的密钥与数据库密码；`cloud_first` 会跳过本地草稿服务，`NEO4J_ENABLED=false` 会关闭知识图谱模块。
 
 ```powershell
 $env:QWEN_API_KEY = "填入你的 DashScope API Key"
@@ -90,7 +90,7 @@ npm ci
 npm run dev
 ```
 
-访问 **http://localhost:5173**。演示账号为 `admin` / `admin123`；公共部署前请更改默认凭据并配置独立的 JWT 密钥。
+访问 <strong>http://localhost:5173</strong>。演示账号为 `admin` / `admin123`；公共部署前请更改默认凭据并配置独立的 JWT 密钥。
 
 #### 3. 按需启用完整能力
 
@@ -106,18 +106,17 @@ npm run dev
 
 ### 系统架构与七步工作流
 
-![系统架构图](docs/images/fig1_architecture.png)
+```mermaid
+flowchart LR
+    FE["React 前端"] --> BE["Spring Boot 后端"]
+    BE --> DB[("MySQL 会话与业务数据")]
+    BE --> Q["DashScope Qwen 文本与视觉模型"]
+    BE --> LM["本地 1.5B 推理服务（可选）"]
+    BE --> SK["FastAPI 皮肤分割服务（可选）"]
+    BE --> KG["Neo4j 图谱服务（可选）"]
+```
 
-前端负责采集与呈现；Spring Boot 后端编排问诊、会话和 AI 调用；MySQL 保存业务状态。本地模型、皮肤分割和嵌入式 Neo4j 均以独立服务接入，图谱通过 Bolt 与后端通信。
-
-<details>
-<summary>查看服务部署拓扑</summary>
-
-![部署架构图](docs/images/fig7_deployment.png)
-
-</details>
-
-![七步状态机流程](docs/images/fig2_seven_step_fsm.png)
+前端负责采集与呈现；后端编排问诊、会话和模型调用；MySQL 保存业务状态。本地推理、皮肤分割和图谱均以独立服务接入，其中图谱通过 Bolt 与后端通信。七步向导按以下顺序推进：
 
 | 步骤 | 处理内容 | 持久化结果 |
 |---|---|---|
@@ -133,27 +132,32 @@ npm run dev
 
 ### 双层模型调用与输出治理
 
-![本地草稿与云端 Qwen 调用链](docs/images/fig3_dual_pipeline.png)
+```mermaid
+flowchart LR
+    U["原始问诊信息"] --> M{"启用本地草稿？"}
+    M -- "是" --> L["本地 1.5B 模型生成草稿"]
+    L --> C{"内容有效且未超时？"}
+    C -- "是" --> Q["Qwen 基于原始信息生成回复"]
+    C -- "否" --> Q
+    M -- "否" --> Q
+    Q --> R["返回问诊回复"]
+```
 
-自由问诊与向导中的 AI 辨证可先由本地 1.5B 微调模型生成短草稿。后端检查草稿长度与异常内容，再把合格草稿作为**低置信度线索**交给 Qwen；最终回复仍以用户原始描述和四诊信息为准。默认本地请求超时配置为 `2500ms`，草稿无效或等待超时便跳过草稿继续云端请求，控制本地推理对响应延迟的影响。相关代码见 [DeepSeekService](backend/src/main/java/com/smarttcm/service/DeepSeekService.java)。
-
-![LLM 输出五层防线](docs/images/fig4_five_layer_defense.png)
+自由问诊与向导中的 AI 辨证可先由本地 1.5B 微调模型生成短草稿。后端检查草稿长度与异常内容，再把合格草稿作为<strong>低置信度线索</strong>交给 Qwen；最终回复仍以用户原始描述和四诊信息为准。默认本地请求超时配置为 `2500ms`，草稿无效或等待超时便跳过草稿继续云端请求，控制本地推理对响应延迟的影响。相关代码见 [DeepSeekService](backend/src/main/java/com/smarttcm/service/DeepSeekService.java)。
 
 | 层 | 针对的问题 | 当前实现 |
 |---|---|---|
 | 清洗 | `<think>`、BPE 残留、代码围栏等 | 清理草稿与诊断文本 |
 | 结构化解析 | JSON 字段缺失或格式漂移 | 提取 JSON，回填主证与治法等关键字段 |
-| 校验与规则兜底 | 第 4 步诊断输出不可用 | 根据已采集的症状、归经和病程生成保守的完整结构 |
+| 校验与规则兜底 | 第 4 步诊断输出不可用 | 根据已采集的症状、归经和病程生成保守、字段完整的辨证结果 |
 | 延迟治理 | 本地草稿过慢或质量不足 | 跳过草稿，继续云端链路 |
 | 前端兜底 | 已保存文本仍不可读 | 展示前清洗并提供可读提示 |
 
 同一“先验证、再回退”的原则也用于皮肤分析与 RAG：前者会检查分割结果和 Qwen-VL 文本是否矛盾；后者在生成失败时返回已检索到的证据。它们是各模块独立实现的容错策略。
 
-> **当前实现边界：** `AI_MODE` 配置提供 `cloud_first`、`local_draft_qwen_refine`、`local_only` 三个取值；现有代码主要用它控制本地草稿是否参与问诊，`local_only` 尚不是七步向导的完全离线开关。向导第 4 步有规则兜底，第 5–7 步仍需可用的云端 Qwen。
+> <strong>当前实现边界：</strong> `AI_MODE` 配置提供 `cloud_first`、`local_draft_qwen_refine`、`local_only` 三个取值；现有代码主要用它控制本地草稿是否参与问诊，`local_only` 尚不是七步向导的完全离线开关。向导第 4 步有规则兜底，第 5–7 步仍需可用的云端 Qwen。
 
 ### 皮肤分割与双引擎知识系统
-
-![皮肤病灶分割网络](docs/images/fig5_skin_network.png)
 
 皮肤服务以 Swin-T 提取多尺度特征，经过 DABNeck（自注意力与深度可分门控）和多尺度空洞注意力生成病灶掩码；FastAPI 将掩码及叠加图返回后端，再交由 Qwen-VL 结合图像做辅助分析。推理网络和服务位于 [skin_service/main.py](skin_service/main.py)，多模态编排与一致性检查位于 [SkinDetectionController](backend/src/main/java/com/smarttcm/controller/SkinDetectionController.java)。
 
@@ -168,21 +172,19 @@ npm run dev
 
 ### 两阶段 LoRA 微调
 
-![两阶段 LoRA 微调流程](docs/images/fig6_finetune.png)
-
-本地模型采用 DeepSeek-R1-Distill-Qwen-1.5B 的 Qwen2 系列架构，在 LLaMA Factory 中先用古文与现代文对照语料进行语言适配，再续接中医专业问答进行领域对齐，训练产物随后供本地推理服务加载。
+本地模型采用 DeepSeek-R1-Distill-Qwen-1.5B 的 Qwen2 系列架构，在 LLaMA Factory 中先用古文与现代文对照语料进行语言适配，再用中医专业问答完成领域对齐，训练产物随后供本地推理服务加载。
 
 | 阶段 | 数据准备规模 | 目标 |
 |---|---:|---|
 | 古文与现代文对照 | 约 196 万条 | 古籍表达与现代语义对齐 |
 | 中医专业问答 | 约 54 万条 | 辨证、方剂等领域知识适配 |
 
-数据量是**数据集规模**。作品报告中的 LLaMA Factory 配置包含每阶段 `max_samples=100000`；不能据此推断全部约 250 万条都参与了训练。主要配置为 LoRA `r=8`、`alpha=16`、学习率 `5e-5`、上下文长度 `2048`、4-bit 量化和 BF16。训练过程、评测与消融记录来自参赛作品报告；本仓库公开的是部署与推理代码，未包含完整训练脚本。
+数据量是<strong>数据集规模</strong>。作品报告中的 LLaMA Factory 配置包含每阶段 `max_samples=100000`；不能据此推断全部约 250 万条都参与了训练。主要配置为 LoRA `r=8`、`alpha=16`、学习率 `5e-5`、上下文长度 `2048`、4-bit 量化和 BF16。训练过程、评测与消融记录来自参赛作品报告；本仓库公开的是部署与推理代码，未包含完整训练脚本。
 
 <details>
-<summary>查看原有训练配置截图</summary>
+<summary>查看第一阶段训练配置截图</summary>
 
-![LLaMA Factory 微调配置](docs/images/fig11_finetune_code.png)
+![LLaMA Factory 第一阶段训练配置](docs/images/fig11_finetune_code.png)
 
 </details>
 
@@ -194,18 +196,27 @@ npm run dev
 |---|---:|---|
 | CMB 中文医学题集 | 平均嵌入相似度 `0.72`，较基座 `+0.18` | 作品报告第 38 页的语义相似度比较；非 CMB 官方准确率 |
 | ISIC 2017 病灶分割 | 续训实验最优 mIoU `79.35%`；基线实验 mDice `86.76%` | 报告第 31 页表 8；两项来自不同实验记录 |
-| 问诊首字响应 | 平均 `582.40ms` | 作品报告第 41 页的测试环境记录 |
+| 问诊首字延迟 | 平均 `582.40ms` | 作品报告第 41 页的测试环境记录 |
 | 页面加载 | 平均 `1.03s` | 作品报告第 41 页的测试环境记录 |
 | 连续运行 | `72 小时` | 作品报告第 42 页的稳定性记录 |
 
 皮肤分割训练探索包含 CE、Dice、Boundary 联合损失；报告中的边界损失消融未超过基线，因此上表未将最优 mIoU 与联合损失实验归为同一次运行。以上性能数据尚无随仓库公开的原始日志或一键复现实验脚本，应按竞赛报告的测试记录理解。
 
 <details>
-<summary>查看原有数据图（保留在仓库中）</summary>
+<summary>原始设计示意图与数据图</summary>
 
-[检索采样图](docs/images/fig8_rag_retrieval_data.png) ·
-[延迟采样图](docs/images/fig9_latency_data.png) ·
-[防御事件采样图](docs/images/fig10_defense_stats.png)
+以下为项目原有展示素材，供查看设计过程；当前实现请以正文与源码为准。
+
+- [系统架构示意图](docs/images/fig1_architecture.png)
+- [七步工作流示意图](docs/images/fig2_seven_step_fsm.png)
+- [双层模型调用示意图](docs/images/fig3_dual_pipeline.png)
+- [输出治理示意图](docs/images/fig4_five_layer_defense.png)
+- [皮肤分割网络示意图](docs/images/fig5_skin_network.png)
+- [微调流程示意图](docs/images/fig6_finetune.png)
+- [服务部署示意图](docs/images/fig7_deployment.png)
+- [检索采样图](docs/images/fig8_rag_retrieval_data.png)
+- [延迟采样图](docs/images/fig9_latency_data.png)
+- [防御事件采样图](docs/images/fig10_defense_stats.png)
 
 </details>
 
@@ -215,7 +226,7 @@ npm run dev
 |---|---|
 | [backend/](backend/) | Spring Boot API、问诊状态、模型编排与知识服务 |
 | [frontend/](frontend/) | React 界面、七步向导与数据展示 |
-| [local_model_server.py](local_model_server.py) | 本地模型的 OpenAI 兼容推理接口 |
+| [local_model_server.py](local_model_server.py) | 本地模型的 `/v1/chat/completions` 推理接口 |
 | [skin_service/](skin_service/) | Swin-T 病灶分割与 FastAPI 推理 |
 | [neo4j-embedded/](neo4j-embedded/) | Neo4j 嵌入式服务启动器 |
 | [database/smarttcm_full.sql](database/smarttcm_full.sql) | 演示数据库转储 |
